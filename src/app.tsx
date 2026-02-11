@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useCallback, useRef, useState, type FormEvent } from "react";
 import { HeartQr } from "@/components/heart-qr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,42 @@ const FLOATING_SYMBOLS = ["♥", "♡", "❤", "💕", "✦"];
 function App() {
   const [input, setInput] = useState("");
   const [qrText, setQrText] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  const handleCopy = useCallback(async () => {
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    // Replace currentColor so the exported PNG has the right fill
+    const svgData = new XMLSerializer()
+      .serializeToString(svg)
+      .replaceAll("currentColor", "#fb7185");
+    const svgBlob = new Blob([svgData], {
+      type: "image/svg+xml;charset=utf-8",
+    });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1024;
+      canvas.height = 940;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, 1024, 1024);
+      URL.revokeObjectURL(url);
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        await navigator.clipboard.write([
+          new ClipboardItem({ "image/png": blob }),
+        ]);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }, "image/png");
+    };
+    img.src = url;
+  }, []);
 
   const handleGenerate = (e: FormEvent) => {
     e.preventDefault();
@@ -84,6 +120,7 @@ function App() {
           {qrText ? (
             <div className="animate-fade-in w-full">
               <HeartQr
+                ref={svgRef}
                 text={qrText}
                 className="w-full text-rose-400 drop-shadow-[0_4px_20px_rgba(244,63,94,0.4)]"
               />
@@ -99,6 +136,15 @@ function App() {
             </div>
           )}
         </div>
+
+        <Button
+          type="button"
+          onClick={handleCopy}
+          variant="outline"
+          className={`rounded-full border-2 border-rose-200 bg-white/60 text-rose-500 backdrop-blur-sm hover:bg-rose-50 hover:text-rose-600 ${qrText ? "visible" : "invisible"}`}
+        >
+          {copied ? "Copied!" : "Copy Image"}
+        </Button>
       </div>
     </div>
   );

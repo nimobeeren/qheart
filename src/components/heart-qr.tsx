@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import QRCode from "qrcode";
 
 interface HeartQrProps {
@@ -51,7 +52,10 @@ function generateSemicirclePixels(
   return pixels;
 }
 
-export function HeartQr({ text, className }: HeartQrProps) {
+export const HeartQr = forwardRef<SVGSVGElement, HeartQrProps>(function HeartQr(
+  { text, className },
+  ref,
+) {
   let qr;
   try {
     qr = QRCode.create(text, { errorCorrectionLevel: "H" });
@@ -80,6 +84,7 @@ export function HeartQr({ text, className }: HeartQrProps) {
 
   return (
     <svg
+      ref={ref}
       viewBox={`${vbMin} ${vbMin} ${vbSize} ${vbSize}`}
       className={className}
     >
@@ -127,4 +132,4 @@ export function HeartQr({ text, className }: HeartQrProps) {
       </g>
     </svg>
   );
-}
+});
