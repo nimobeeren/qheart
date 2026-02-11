@@ -26,3 +26,13 @@ pnpm dev
 ```sh
 pnpm build
 ```
+
+### OG Image
+
+Regenerate the Open Graph image (`public/og.png`):
+
+```sh
+node scripts/generate-og.mjs
+```
+
+The Pacifico font is downloaded automatically on first run.
