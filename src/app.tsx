@@ -44,13 +44,13 @@ function App() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center gap-8">
+      <div className="relative z-10 flex w-full max-w-[340px] flex-col items-center gap-8 sm:max-w-md">
         {/* Title */}
         <div className="text-center">
           <p className="mb-1 text-sm tracking-[0.3em] text-rose-300">
             ✧ ─── ✧ ─── ✧
           </p>
-          <h1 className="font-pacifico text-5xl text-rose-400 drop-shadow-[0_2px_10px_rgba(244,63,94,0.3)] sm:text-6xl">
+          <h1 className="font-pacifico text-4xl text-rose-400 drop-shadow-[0_2px_10px_rgba(244,63,94,0.3)] sm:text-6xl">
             QR My Heart
           </h1>
           <p className="mt-2 text-sm tracking-[0.3em] text-rose-300">
@@ -59,13 +59,17 @@ function App() {
         </div>
 
         {/* Input */}
-        <form onSubmit={handleGenerate} className="flex gap-3">
+        <form
+          onSubmit={handleGenerate}
+          className="flex w-full flex-col gap-2 sm:flex-row sm:gap-3"
+        >
           <Input
+            name="text"
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your love note..."
-            className="w-64 rounded-full border-2 border-rose-200 bg-white/60 text-rose-600 backdrop-blur-sm placeholder:text-rose-300 focus-visible:border-rose-400 focus-visible:ring-rose-200 sm:w-72"
+            className="h-11 min-w-0 flex-1 rounded-full border-2 border-rose-200 bg-white/60 text-base text-rose-600 backdrop-blur-sm placeholder:text-rose-300 focus-visible:border-rose-400 focus-visible:ring-rose-200 md:text-base"
           />
           <Button
             type="submit"
@@ -76,13 +80,12 @@ function App() {
         </form>
 
         {/* QR display area — fixed size prevents layout shift */}
-        <div className="flex h-[340px] w-[340px] items-center justify-center">
+        <div className="flex aspect-square w-full max-w-[340px] items-center justify-center">
           {qrText ? (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-full">
               <HeartQr
                 text={qrText}
-                size={320}
-                className="text-rose-400 drop-shadow-[0_4px_20px_rgba(244,63,94,0.4)]"
+                className="w-full text-rose-400 drop-shadow-[0_4px_20px_rgba(244,63,94,0.4)]"
               />
             </div>
           ) : (

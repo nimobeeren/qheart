@@ -2,7 +2,6 @@ import QRCode from "qrcode";
 
 interface HeartQrProps {
   text: string;
-  size?: number;
   className?: string;
 }
 
@@ -52,7 +51,7 @@ function generateSemicirclePixels(
   return pixels;
 }
 
-export function HeartQr({ text, size = 300, className }: HeartQrProps) {
+export function HeartQr({ text, className }: HeartQrProps) {
   let qr;
   try {
     qr = QRCode.create(text, { errorCorrectionLevel: "H" });
@@ -82,8 +81,6 @@ export function HeartQr({ text, size = 300, className }: HeartQrProps) {
   return (
     <svg
       viewBox={`${vbMin} ${vbMin} ${vbSize} ${vbSize}`}
-      width={size}
-      height={size}
       className={className}
     >
       <g transform={`rotate(45, ${cx}, ${cy})`}>
