@@ -102,6 +102,7 @@ function App() {
           <Input
             name="text"
             type="text"
+            required
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your love note..."
