@@ -1,6 +1,8 @@
-# qheart
+# Heart QR Code Generator
 
-## Getting Started
+A simple web app to generate heart-shaped QR codes.
+
+## Development
 
 ### Prerequisites
 
@@ -13,7 +15,7 @@
 pnpm install
 ```
 
-### Development
+### Dev Server
 
 ```sh
 pnpm dev
