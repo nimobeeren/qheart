@@ -122,3 +122,44 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Valentine's theme */
+
+.font-pacifico {
+  font-family: "Pacifico", cursive;
+}
+
+@keyframes float-up {
+  from {
+    transform: translateY(10vh) rotate(0deg);
+  }
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+  }
+}
+
+.animate-float-up {
+  animation: float-up linear infinite backwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-up,
+  .animate-fade-in {
+    animation: none;
+  }
+}
