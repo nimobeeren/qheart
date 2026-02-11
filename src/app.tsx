@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState, type FormEvent } from "react";
+import { Github } from "lucide-react";
 import { HeartQr } from "@/components/heart-qr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,6 +79,22 @@ function App() {
           </span>
         ))}
       </div>
+
+      {/* GitHub link */}
+      <Button
+        asChild
+        variant="ghost"
+        size="icon"
+        className="absolute bottom-3 left-3 z-10 text-rose-300 hover:text-rose-400 hover:bg-rose-200/40"
+      >
+        <a
+          href="https://github.com/nimobeeren/qheart"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Github className="size-5" />
+        </a>
+      </Button>
 
       {/* Main content */}
       <div className="relative z-10 flex w-full max-w-[340px] flex-col items-center gap-8 sm:max-w-md">
