@@ -87,6 +87,8 @@ export const HeartQr = forwardRef<SVGSVGElement, HeartQrProps>(function HeartQr(
       ref={ref}
       viewBox={`${vbMin} ${vbMin} ${vbSize} ${vbSize}`}
       className={className}
+      role="img"
+      aria-label={`Heart-shaped QR code for: ${text}`}
     >
       <g transform={`rotate(45, ${cx}, ${cy})`}>
         {/* Left semicircle pixels (becomes left bump of heart) */}

@@ -1,8 +1,8 @@
-import { useCallback, useRef, useState, type FormEvent } from "react";
-import { Github } from "lucide-react";
 import { HeartQr } from "@/components/heart-qr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Github } from "lucide-react";
+import { useCallback, useRef, useState, type FormEvent } from "react";
 
 const FLOATING_SYMBOLS = ["♥", "♡", "❤", "💕", "✦"];
 
@@ -104,9 +104,10 @@ function App() {
             name="text"
             type="text"
             required
+            aria-label="Love note or URL"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your love note..."
+            placeholder="Write your love note..."
             className="h-11 min-w-0 flex-1 rounded-full border-2 border-rose-200 bg-white/60 text-base text-rose-600 backdrop-blur-sm placeholder:text-rose-300 focus-visible:border-rose-400 focus-visible:ring-rose-200 md:text-base"
           />
           <Button
@@ -161,7 +162,8 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Github className="size-5" />
+          <Github className="size-5" aria-hidden="true" />
+          <span className="sr-only">View source on GitHub</span>
         </a>
       </Button>
     </div>
